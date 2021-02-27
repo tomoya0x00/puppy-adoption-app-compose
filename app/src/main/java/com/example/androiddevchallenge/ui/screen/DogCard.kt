@@ -1,5 +1,6 @@
 package com.example.androiddevchallenge.ui.screen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -7,9 +8,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.Colors
 import androidx.compose.material.Icon
 import androidx.compose.material.IconToggleButton
+import androidx.compose.material.LocalContentAlpha
+import androidx.compose.material.LocalContentColor
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -19,6 +24,8 @@ import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -45,8 +52,6 @@ fun DogCard(
             ImageAndFavoriteButton(
                 dog = dog,
                 onToggleFavorite = { onToggleFavorite() },
-                modifier = Modifier.height(240.dp),
-                contentScale = ContentScale.Crop
             )
             Column(
                 modifier = Modifier.padding(8.dp)
@@ -68,17 +73,17 @@ fun DogCard(
 fun ImageAndFavoriteButton(
     dog: Dog,
     onToggleFavorite: () -> Unit,
-    modifier: Modifier = Modifier,
-    contentScale: ContentScale = ContentScale.Fit,
+    modifier: Modifier = Modifier
 ) {
     Box(
         modifier = modifier
             .fillMaxWidth()
+            .height(240.dp)
     ) {
         CoilImage(
             data = dog.imageUrl,
             contentDescription = null,
-            contentScale = contentScale,
+            contentScale = ContentScale.Crop,
             loading = {
                 Box(
                     modifier = Modifier
@@ -96,7 +101,6 @@ fun ImageAndFavoriteButton(
             FavoriteButton(
                 isFavorite = dog.isFavorite,
                 onClick = { onToggleFavorite() },
-                modifier = Modifier
             )
         }
     }
@@ -121,7 +125,6 @@ fun DogCardPreview() {
 fun FavoriteButton(
     isFavorite: Boolean,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier,
 ) {
     IconToggleButton(
         checked = isFavorite,
@@ -130,6 +133,7 @@ fun FavoriteButton(
         Icon(
             imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
             contentDescription = null,
+            tint = Color.Magenta,
         )
     }
 }
