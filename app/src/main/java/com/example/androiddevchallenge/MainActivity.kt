@@ -22,6 +22,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.androiddevchallenge.ui.NavGraph
 import com.example.androiddevchallenge.ui.screen.DogsScreen
 import com.example.androiddevchallenge.ui.theme.MyTheme
 import dev.chrisbanes.accompanist.coil.CoilImage
@@ -35,9 +36,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MyTheme {
-                DogsScreen(
-                    dogRepository = AppContainer.dogRepository
-                )
+                NavGraph()
             }
         }
     }
@@ -50,7 +49,8 @@ class MainActivity : AppCompatActivity() {
 fun LightPreview() {
     MyTheme {
         DogsScreen(
-            dogRepository = AppContainer.dogRepository
+            dogRepository = AppContainer.dogRepository,
+            selectDog = {}
         )
     }
 }
@@ -62,7 +62,8 @@ fun LightPreview() {
 fun DarkPreview() {
     MyTheme(darkTheme = true) {
         DogsScreen(
-            dogRepository = AppContainer.dogRepository
+            dogRepository = AppContainer.dogRepository,
+            selectDog = {}
         )
     }
 }

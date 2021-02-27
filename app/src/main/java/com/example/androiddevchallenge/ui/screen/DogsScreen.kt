@@ -12,12 +12,14 @@ import androidx.compose.ui.unit.dp
 import com.example.androiddevchallenge.repository.DogRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import java.util.*
 
 @FlowPreview
 @ExperimentalCoroutinesApi
 @Composable
 fun DogsScreen(
     dogRepository: DogRepository,
+    selectDog: (UUID) -> Unit
 ) {
     val dogs by dogRepository.dogs.collectAsState()
 

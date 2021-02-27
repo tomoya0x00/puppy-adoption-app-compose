@@ -54,7 +54,7 @@ class DogRepository {
     private val _dogs = MutableStateFlow(DOGS)
     val dogs: StateFlow<List<Dog>> = _dogs
 
-    suspend fun toggleFavorite(id: UUID) {
+    suspend fun toggleFavorite(id: String) {
         val newDogs = _dogs.value.map { dog ->
             if (dog.id == id) dog.copy(isFavorite = !dog.isFavorite) else dog
         }
