@@ -8,5 +8,5 @@ data class Dog(
     val imageUrl: String,
     val months: Int,
     val description: String,
-    var isFavorite: Boolean = false,
+    val isFavorite: Boolean = false,
 )
