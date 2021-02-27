@@ -14,7 +14,7 @@ import com.example.androiddevchallenge.repository.DogRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.launch
-import java.util.*
+import java.util.UUID
 
 @FlowPreview
 @ExperimentalCoroutinesApi

@@ -1,6 +1,6 @@
 package com.example.androiddevchallenge.model
 
-import java.util.*
+import java.util.UUID
 
 data class Dog(
     val id: UUID = UUID.randomUUID(),

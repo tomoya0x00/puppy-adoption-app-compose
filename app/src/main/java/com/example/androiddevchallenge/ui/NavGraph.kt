@@ -14,7 +14,7 @@ import com.example.androiddevchallenge.ui.screen.DogDetailScreen
 import com.example.androiddevchallenge.ui.screen.DogsScreen
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import java.util.*
+import java.util.UUID
 
 object MainDestinations {
     const val DOGS_ROUTE = "dogs"
