@@ -10,6 +10,7 @@ import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
 import com.example.androiddevchallenge.AppContainer
+import com.example.androiddevchallenge.ui.screen.DogDetailScreen
 import com.example.androiddevchallenge.ui.screen.DogsScreen
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -40,20 +41,22 @@ fun NavGraph(startDestination: String = MainDestinations.DOGS_ROUTE) {
             )
         }
         composable(
-            "${MainDestinations.DOG_DETAIL_ROUTE}/${MainDestinations.DOG_DETAIL_ID_KEY}",
+            "${MainDestinations.DOG_DETAIL_ROUTE}/{${MainDestinations.DOG_DETAIL_ID_KEY}}",
             arguments = listOf(navArgument(MainDestinations.DOG_DETAIL_ID_KEY) {
                 type = NavType.StringType
             })
         ) { navBackStackEntry ->
-            val arguments = requireNotNull(MainDestinations.DOG_DETAIL_ID_KEY)
-            // TODO: Implment
-
+            val arguments = requireNotNull(navBackStackEntry.arguments)
+            DogDetailScreen(
+                dogRepository = AppContainer.dogRepository,
+                dogId = UUID.fromString(arguments.getString(MainDestinations.DOG_DETAIL_ID_KEY, ""))
+            )
         }
     }
 }
 
 class MainActions(navController: NavController) {
-    val selectDog: (UUID) -> Unit = { dogId: UUID ->
+    val selectDog: (UUID) -> Unit = { dogId ->
         navController.navigate("${MainDestinations.DOG_DETAIL_ROUTE}/$dogId")
     }
 }

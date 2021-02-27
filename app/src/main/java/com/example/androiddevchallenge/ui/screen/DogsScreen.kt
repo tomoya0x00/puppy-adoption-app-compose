@@ -7,11 +7,13 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.androiddevchallenge.repository.DogRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.launch
 import java.util.*
 
 @FlowPreview
@@ -22,13 +24,19 @@ fun DogsScreen(
     selectDog: (UUID) -> Unit
 ) {
     val dogs by dogRepository.dogs.collectAsState()
+    val composableScope = rememberCoroutineScope()
 
     LazyColumn {
         items(items = dogs) { dog ->
             DogCard(
                 dog = dog,
-                navigateTo = { },
-                onToggleFavorite = { })
+                onSelectDog = selectDog,
+                onToggleFavorite = {
+                    composableScope.launch {
+                        dogRepository.toggleFavorite(dog.id)
+                    }
+                }
+            )
             Spacer(modifier = Modifier.height(8.dp))
         }
     }

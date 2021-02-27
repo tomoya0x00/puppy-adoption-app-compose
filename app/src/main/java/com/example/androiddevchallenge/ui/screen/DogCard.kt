@@ -1,5 +1,6 @@
 package com.example.androiddevchallenge.ui.screen
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -26,20 +27,27 @@ import com.example.androiddevchallenge.repository.DogRepository
 import dev.chrisbanes.accompanist.coil.CoilImage
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import java.util.*
 
 @Composable
 fun DogCard(
     dog: Dog,
-    navigateTo: () -> Unit,
-    onToggleFavorite: (Dog) -> Unit
+    onSelectDog: (UUID) -> Unit,
+    onToggleFavorite: () -> Unit
 ) {
     Surface(
         elevation = 1.dp,
         modifier = Modifier
             .padding(8.dp)
+            .clickable { onSelectDog(dog.id) }
     ) {
         Column {
-            ImageAndFavoriteButton(dog = dog, onToggleFavorite = { onToggleFavorite(dog) })
+            ImageAndFavoriteButton(
+                dog = dog,
+                onToggleFavorite = { onToggleFavorite() },
+                modifier = Modifier.height(240.dp),
+                contentScale = ContentScale.Crop
+            )
             Column(
                 modifier = Modifier.padding(8.dp)
             ) {
@@ -59,18 +67,18 @@ fun DogCard(
 @Composable
 fun ImageAndFavoriteButton(
     dog: Dog,
-    onToggleFavorite: (Dog) -> Unit
+    onToggleFavorite: () -> Unit,
+    modifier: Modifier = Modifier,
+    contentScale: ContentScale = ContentScale.Fit,
 ) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
-            .height(240.dp)
     ) {
         CoilImage(
             data = dog.imageUrl,
             contentDescription = null,
-            contentScale = ContentScale.Crop,
-            fadeIn = true,
+            contentScale = contentScale,
             loading = {
                 Box(
                     modifier = Modifier
@@ -87,7 +95,7 @@ fun ImageAndFavoriteButton(
         {
             FavoriteButton(
                 isFavorite = dog.isFavorite,
-                onClick = { onToggleFavorite(dog) },
+                onClick = { onToggleFavorite() },
                 modifier = Modifier
             )
         }
@@ -104,7 +112,7 @@ fun DogCardPreview() {
 
     DogCard(
         dog = dog,
-        navigateTo = { },
+        onSelectDog = { },
         onToggleFavorite = { },
     )
 }
